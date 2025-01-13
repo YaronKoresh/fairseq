@@ -242,8 +242,8 @@ if __name__ == "__main__":
     try:
         # symlink examples into fairseq package so package_data accepts them
         fairseq_examples = os.path.join("fairseq", "examples")
-        if "build_ext" not in sys.argv[1:] and not os.path.exists(fairseq_examples):
-            os.symlink(os.path.join("..", "examples"), fairseq_examples)
+        #if "build_ext" not in sys.argv[1:] and not os.path.exists(fairseq_examples):
+        #    os.symlink(os.path.join("..", "examples"), fairseq_examples)
 
         package_data = {
             "fairseq": (
@@ -253,5 +253,5 @@ if __name__ == "__main__":
         }
         do_setup(package_data)
     finally:
-        if "build_ext" not in sys.argv[1:] and os.path.islink(fairseq_examples):
-            os.unlink(fairseq_examples)
+        #if "build_ext" not in sys.argv[1:] and os.path.islink(fairseq_examples):
+        #    os.unlink(fairseq_examples)
