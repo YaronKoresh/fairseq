@@ -255,3 +255,4 @@ if __name__ == "__main__":
     finally:
         #if "build_ext" not in sys.argv[1:] and os.path.islink(fairseq_examples):
         #    os.unlink(fairseq_examples)
+        print("fairseq: ok")
