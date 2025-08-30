@@ -16,11 +16,11 @@ if sys.version_info < (3, 6):
 
 
 def write_version_py():
-    with open(os.path.join("fairseq", "version.txt")) as f:
+    with open(os.path.join(os.path.dirname(__file__), "version.txt")) as f:
         version = f.read().strip()
 
     # write version info to fairseq/version.py
-    with open(os.path.join("fairseq", "version.py"), "w") as f:
+    with open(os.path.join(os.path.dirname(__file__), "version.py"), "w") as f:
         f.write('__version__ = "{}"\n'.format(version))
     return version
 
