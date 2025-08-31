@@ -4,6 +4,16 @@
 # LICENSE file in the root directory of this source tree.
 """isort:skip_file"""
 
+import torch
+import math
+from types import SimpleNamespace
+
+# --- MONKEY PATCH FOR torch._six ---
+if not hasattr(torch, '_six'):
+    torch._six = SimpleNamespace()
+    torch._six.inf = math.inf
+# ------------------------------------
+
 import os
 import sys
 

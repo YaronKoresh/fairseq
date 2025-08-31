@@ -3,10 +3,67 @@ requires = [
   "setuptools>=18.0",
   "wheel",
   "cython",
-  "numpy>=1.21.3",
-  "torch>=1.10",
+  "numpy~=1.26.4",
+  "torch>=2.2.0",
 ]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "fairseq"
+description = "Facebook AI Research Sequence-to-Sequence Toolkit"
+readme = "README.md"
+requires-python = ">=3.6"
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "cffi",
+    "cython",
+    "hydra-core~=1.3.2",
+    "omegaconf~=2.3.0",
+    "numpy~=1.26.4",
+    "regex",
+    "sacrebleu",
+    "torch>=2.2.0",
+    "tqdm",
+    "bitarray",
+    "torchaudio>=2.2.0",
+    "scikit-learn",
+    "packaging",
+]
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/facebookresearch/fairseq"
+
+[project.scripts]
+fairseq-eval-lm = "fairseq_cli.eval_lm:cli_main"
+fairseq-generate = "fairseq_cli.generate:cli_main"
+fairseq-hydra-train = "fairseq_cli.hydra_train:cli_main"
+fairseq-interactive = "fairseq_cli.interactive:cli_main"
+fairseq-preprocess = "fairseq_cli.preprocess:cli_main"
+fairseq-score = "fairseq_cli.score:cli_main"
+fairseq-train = "fairseq_cli.train:cli_main"
+fairseq-validate = "fairseq_cli.validate:cli_main"
+
+[project.optional-dependencies]
+dev = ["flake8", "pytest", "black==22.3.0", "hypothesis", "expecttest"]
+docs = ["sphinx", "sphinx-argparse"]
+
+[tool.setuptools]
+zip-safe = false
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["fairseq*", "examples*", "tests*"]
+
+[tool.setuptools.package-data]
+fairseq = ["fairseq/config/**/*", "examples/**/*"]
 
 [tool.black]
 extend-exclude = '''
@@ -20,3 +77,11 @@ extend-exclude = '''
 profile = "black"
 known_third_party = "_cffi_backend,agg_results,aml,bitarray,boto3,botocore,dump_hubert_feature,dynamicconv_cuda,editdistance,faiss,fasttext,feature_utils,ffmpeg,g2p_en,h5py,hydra,hypothesis,indicnlp,inflect,iopath,joblib,kaldi_io,kenlm,libfb,librosa,lightconv_cuda,matplotlib,misc,mmpt,mmpt_cli,model,nltk,npy_append_array,numpy,omegaconf,pandas,pathbuilder,preprocessing,progressbar,pythainlp,random_sequence_shuffler,regex,sacrebleu,sacremoses,scipy,sentencepiece,setuptools,six,sklearn,soundfile,sweep,sweep_wmt_en2de_transformer_big_common,tabulate,torch,torchaudio,tqdm,unidecode,utils,videoreader,wav2vec_cluster_faiss,wget,yaml"
 skip_gitignore = true
+
+[tool.flake8]
+max-line-length = 127
+extend-ignore = "E203, W503"
+extend-exclude = "fairseq/model_parallel/megatron"
+
+[tool.pytest.ini_options]
+norecursedirs = "fairseq/model_parallel/megatron"

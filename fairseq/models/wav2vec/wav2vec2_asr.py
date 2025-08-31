@@ -550,7 +550,7 @@ class Wav2VecEncoder(FairseqEncoder):
                     module._reset_lazy_init()
 
             # Once layers are loaded, filter them out and load everything else.
-            r = re.compile("encoder.layers.\d.")
+            r = re.compile(r"encoder.layers.\d.")
             filtered_list = list(filter(r.match, state["model"].keys()))
 
             new_big_dict = {
